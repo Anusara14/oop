@@ -597,202 +597,180 @@ CREATE TABLE students (
 **File: OOPDemo.java**
 
 ```java
-// ==================== 1. ENCAPSULATION ====================
-/*
-Encapsulation is the mechanism of wrapping data (variables) and methods 
-that operate on the data into a single unit (class). It hides the internal 
-state of an object from the outside world and only exposes necessary 
-operations through public methods.
+// Q6: OOP Concepts with Simple Examples (20 Marks)
 
-Key Features:
-- Data hiding using private access modifier
-- Controlled access through getter and setter methods
-- Protects data integrity
-- Prevents unauthorized access
+// ============================================================
+// 1. ENCAPSULATION
+// ============================================================
+/*
+Encapsulation means wrapping data and methods together in a class
+and hiding the internal details from outside access.
+We use private variables and public getter/setter methods.
 */
 
-class Student {
-    // Private fields - data hiding
-    private int studentId;
-    private String name;
-    private double gpa;
+class BankAccount {
+    // Private variables - hidden from outside
+    private String accountNumber;
+    private double balance;
     
-    // Public getter and setter methods - controlled access
-    public int getStudentId() {
-        return studentId;
+    // Constructor
+    public BankAccount(String accountNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
     }
     
-    public void setStudentId(int studentId) {
-        if (studentId > 0) {
-            this.studentId = studentId;
-        } else {
-            System.out.println("Invalid student ID");
-        }
+    // Public getter method - controlled access
+    public double getBalance() {
+        return balance;
     }
     
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public double getGpa() {
-        return gpa;
-    }
-    
-    public void setGpa(double gpa) {
-        if (gpa >= 0.0 && gpa <= 4.0) {
-            this.gpa = gpa;
-        } else {
-            System.out.println("Invalid GPA. Must be between 0.0 and 4.0");
+    // Public setter method - controlled modification
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance = balance + amount;
+            System.out.println("Deposited: $" + amount);
         }
     }
 }
 
-// ==================== 2. INHERITANCE ====================
+// ============================================================
+// 2. INHERITANCE
+// ============================================================
 /*
-Inheritance is a mechanism where a new class (child/subclass) inherits 
-properties and behaviors from an existing class (parent/superclass). 
-It promotes code reusability and establishes an "IS-A" relationship.
-
-Key Features:
-- Reuses existing code
-- Creates hierarchical relationships
-- Uses 'extends' keyword
-- Child class inherits all non-private members
-*/
-
-// Parent class
-class Vehicle {
-    protected String brand;
-    protected int year;
-    
-    public Vehicle(String brand, int year) {
-        this.brand = brand;
-        this.year = year;
-    }
-    
-    public void displayInfo() {
-        System.out.println("Brand: " + brand + ", Year: " + year);
-    }
-    
-    public void start() {
-        System.out.println("Vehicle is starting...");
-    }
-}
-
-// Child class inheriting from Vehicle
-class Car extends Vehicle {
-    private int numberOfDoors;
-    
-    public Car(String brand, int year, int numberOfDoors) {
-        super(brand, year); // Call parent constructor
-        this.numberOfDoors = numberOfDoors;
-    }
-    
-    // Additional method specific to Car
-    public void displayCarInfo() {
-        displayInfo(); // Inherited method
-        System.out.println("Number of Doors: " + numberOfDoors);
-    }
-    
-    // Child can have its own methods
-    public void honk() {
-        System.out.println("Car is honking: Beep! Beep!");
-    }
-}
-
-// ==================== 3. POLYMORPHISM ====================
-/*
-Polymorphism means "many forms". It allows objects of different classes 
-to be treated as objects of a common parent class. The same method name 
-can behave differently based on the object that invokes it.
-
-Types:
-1. Compile-time (Method Overloading)
-2. Runtime (Method Overriding)
-
-Key Features:
-- One interface, multiple implementations
-- Improves flexibility and maintainability
+Inheritance allows a child class to inherit properties and methods
+from a parent class. This promotes code reuse.
+Child class uses 'extends' keyword.
 */
 
 // Parent class
 class Animal {
-    public void makeSound() {
-        System.out.println("Animal makes a sound");
+    String name;
+    
+    public Animal(String name) {
+        this.name = name;
     }
     
     public void eat() {
-        System.out.println("Animal is eating");
+        System.out.println(name + " is eating");
     }
 }
 
-// Child class 1
+// Child class inherits from Animal
 class Dog extends Animal {
-    @Override
-    public void makeSound() {
-        System.out.println("Dog barks: Woof! Woof!");
+    
+    public Dog(String name) {
+        super(name); // Call parent constructor
     }
     
-    // Method overloading (compile-time polymorphism)
-    public void play() {
-        System.out.println("Dog plays with ball");
-    }
-    
-    public void play(String toy) {
-        System.out.println("Dog plays with " + toy);
+    // Dog has its own method
+    public void bark() {
+        System.out.println(name + " says: Woof!");
     }
 }
 
-// Child class 2
-class Cat extends Animal {
-    @Override
-    public void makeSound() {
-        System.out.println("Cat meows: Meow! Meow!");
+// ============================================================
+// 3. POLYMORPHISM
+// ============================================================
+/*
+Polymorphism means "many forms". Same method name behaves 
+differently in different classes.
+Two types: Method Overriding and Method Overloading
+*/
+
+// Parent class
+class Shape {
+    public void draw() {
+        System.out.println("Drawing a shape");
     }
 }
 
-// Main class to demonstrate all concepts
-class OOPDemo {
+// Child class 1 - overrides draw()
+class Circle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+// Child class 2 - overrides draw()
+class Rectangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+
+// Method Overloading example
+class Calculator {
+    // Same method name, different parameters
+    public int add(int a, int b) {
+        return a + b;
+    }
+    
+    public double add(double a, double b) {
+        return a + b;
+    }
+    
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+
+// ============================================================
+// MAIN CLASS TO TEST ALL CONCEPTS
+// ============================================================
+
+public class OOPExamples {
     public static void main(String[] args) {
-        System.out.println("========== ENCAPSULATION DEMO ==========");
-        Student student = new Student();
-        student.setStudentId(101);
-        student.setName("Alice");
-        student.setGpa(3.8);
         
-        System.out.println("Student ID: " + student.getStudentId());
-        System.out.println("Name: " + student.getName());
-        System.out.println("GPA: " + student.getGpa());
+        // Testing ENCAPSULATION
+        System.out.println("===== ENCAPSULATION EXAMPLE =====");
+        BankAccount account = new BankAccount("ACC001", 1000.0);
+        System.out.println("Initial Balance: $" + account.getBalance());
+        account.deposit(500.0);
+        System.out.println("Current Balance: $" + account.getBalance());
         
-        // Trying to set invalid GPA
-        student.setGpa(5.0); // Will show error message
+        System.out.println("\n===== INHERITANCE EXAMPLE =====");
+        // Testing INHERITANCE
+        Dog myDog = new Dog("Bruno");
+        myDog.eat();  // Inherited method from Animal
+        myDog.bark(); // Dog's own method
         
-        System.out.println("\n========== INHERITANCE DEMO ==========");
-        Car myCar = new Car("Toyota", 2023, 4);
-        myCar.displayCarInfo(); // Uses both parent and child methods
-        myCar.start(); // Inherited method
-        myCar.honk(); // Own method
+        System.out.println("\n===== POLYMORPHISM EXAMPLE =====");
+        // Testing POLYMORPHISM - Method Overriding
+        Shape shape1 = new Circle();
+        Shape shape2 = new Rectangle();
         
-        System.out.println("\n========== POLYMORPHISM DEMO ==========");
-        // Runtime polymorphism (Method Overriding)
-        Animal myAnimal = new Animal();
-        Animal myDog = new Dog();
-        Animal myCat = new Cat();
+        shape1.draw(); // Calls Circle's draw()
+        shape2.draw(); // Calls Rectangle's draw()
         
-        myAnimal.makeSound(); // Output: Animal makes a sound
-        myDog.makeSound();    // Output: Dog barks: Woof! Woof!
-        myCat.makeSound();    // Output: Cat meows: Meow! Meow!
-        
-        // Compile-time polymorphism (Method Overloading)
-        Dog realDog = new Dog();
-        realDog.play();           // Output: Dog plays with ball
-        realDog.play("frisbee");  // Output: Dog plays with frisbee
+        // Testing POLYMORPHISM - Method Overloading
+        Calculator calc = new Calculator();
+        System.out.println("Add 2 integers: " + calc.add(5, 3));
+        System.out.println("Add 2 doubles: " + calc.add(5.5, 3.2));
+        System.out.println("Add 3 integers: " + calc.add(5, 3, 2));
     }
 }
+
+/*
+Expected Output:
+
+===== ENCAPSULATION EXAMPLE =====
+Initial Balance: $1000.0
+Deposited: $500.0
+Current Balance: $1500.0
+
+===== INHERITANCE EXAMPLE =====
+Bruno is eating
+Bruno says: Woof!
+
+===== POLYMORPHISM EXAMPLE =====
+Drawing a Circle
+Drawing a Rectangle
+Add 2 integers: 8
+Add 2 doubles: 8.7
+Add 3 integers: 10
+*/
 ```
 
 **Expected Output:**
